@@ -4,6 +4,9 @@ from rest_framework import generics, status
 from .serializers import UserSerializer, MessageSerializer, ConversationSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
+import os
+import requests
 from .models import Message, Conversation
 
 # Conversations
@@ -39,16 +42,24 @@ class MessageListCreate(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        conversation_id = self.kwargs['conversation_id']
-        return Message.objects.filter(conversation__id=conversation_id, conversation__user=self.request.user)
+        user = self.request.user
+        return Message.objects.filter(user=user)
 
     def perform_create(self, serializer):
-        conversation_id = self.kwargs['conversation_id']
-        conversation = generics.get_object_or_404(Conversation, id=conversation_id, user=self.request.user)
-        serializer.save(user=self.request.user, conversation=conversation)
+        if serializer.is_valid():
+            serializer.save(user=self.request.user)
+        else:
+            print(serializer.errors)
 
 
 class CreateUserView(generics.CreateAPIView):
   queryset = User.objects.all()
   serializer_class = UserSerializer
   permission_classes = [AllowAny]
+
+class ManageUserView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
