@@ -1,0 +1,155 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.home-container {
+  height: 100vh;
+  margin: 0 10px;  /* Adds horizontal margin to the entire container */
+}
+
+.messages-list {
+  flex-grow: 1; /* Takes up all available space */
+  overflow-y: auto; /* Makes list scrollable */
+  padding: 10px 0;  /* Top and bottom padding for aesthetic spacing */
+}
+
+.message-item {
+  list-style-type: none;
+  padding: 8px;
+  margin-bottom: 4px;  /* Slightly reduced margin */
+  border-radius: 4px;
+  background-color: #f0f0f0;  /* Default background for AI messages */
+  border: 1px solid #dddddd;  /* Adds a subtle border for better visibility */
+}
+
+.user-message {
+  background-color: #d1ecf1;  /* Slightly different background for user messages */
+}
+
+.ai-message {
+  background-color: #f8d7da;  /* Slightly different background for AI messages */
+}
+
+.card-header{
+  text-align: center;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  font-size: 2em;
+  color: #724343;
+  font-weight: 800;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 10px;
+  background-color: #fff;
+  border-top: 2px solid #ccc;
+}
+
+.message-form {
+  width: 100%;  /* Ensures the form uses all horizontal space */
+  display: flex;
+  justify-content: center;
+  align-items: center;  /* Vertically centers the form elements */
+}
+
+.message-input {
+  width: 75%;  /* Allows the textarea to take up 75% of the form's width */
+  margin-right: 10px;  /* Space between the textarea and the buttons */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;  /* Prevents resizing the textarea */
+}
+
+.send-button, .record-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.record-button {
+  background-color: #28a745;  /* Green background for the record button */
+}
+
+.btn-voice{
+  background-color: transparent;
+  border: none;
+  color: blue;
+  font-size: 100px;
+  position: fixed;
+  bottom: 1em;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.messages-box {
+  margin-bottom: 10em;
+}
+
+.messages-list {
+  padding-left: 0;
+}
+
+.message {
+  margin-bottom: 15px;
+  list-style: none;
+}
+
+.message-text, .ai-message-text {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.ai-message-text{
+  background-color: rgba(16, 16, 60, 0.094);
+}
+
+.sent {
+  background-color: #dcf8c6;
+  align-self: flex-end;
+}
+
+.received {
+  background-color: #f1f0f0;
+  align-self: flex-start;
+}
+
+.message-form {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #f8f9fa;
+}
+
+.message-input {
+  flex: 1;
+  border-radius: 0;
+  border-right: none;
+}
+
+.btn-send {
+  border-radius: 0;
+}
+
+.chat-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container{
+  border: 10px solid black;
+}
