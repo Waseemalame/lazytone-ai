@@ -16,10 +16,23 @@ const AudioRecorder = ({ onNewMessage }) => {
   };
 
   useEffect(scrollToBottom, [messages]);
+  useEffect(() => {
+    listVoices()
+  }, [])
 
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
+
+  function listVoices() {
+    window.speechSynthesis.onvoiceschanged = () => {
+        const voices = window.speechSynthesis.getVoices();
+        console.log(voices);
+        voices.forEach((voice, index) => console.log(index, voice.name, voice.lang));
+    };
+  }
+
+
 
   const saveMessage = async (text) => {
     try {
@@ -29,18 +42,6 @@ const AudioRecorder = ({ onNewMessage }) => {
         console.error('Failed to save message:', error);
     }
 };
-
-  const handleSendMessage = async (event) => {
-    event.preventDefault();
-    if (!inputText.trim()) return;
-    const newMessage = { sender: 'You', content: inputText.trim() };
-    setMessages(messages => [...messages, newMessage]);
-    setInputText('');
-
-    // const response = await sendToOpenAI(inputText.trim());
-    // const botMessage = { sender: 'VoiceBot', content: response };
-    // setMessages(messages => [...messages, botMessage]);
-  };
 
   const recordAndSend = () => {
     const recognition = new window.webkitSpeechRecognition();
@@ -73,7 +74,9 @@ const AudioRecorder = ({ onNewMessage }) => {
 
   const speak = (text) => {
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.voice = window.speechSynthesis.getVoices().find(voice => voice.lang === 'en-US');
+    const allVoices = window.speechSynthesis.getVoices();
+    const ziraVoice = allVoices.find(voice => voice.name.includes("Zira"));
+    utterance.voice = ziraVoice;
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
     window.speechSynthesis.speak(utterance);
